@@ -1,0 +1,58 @@
+title: Download Gitlab artifacts
+summary: |-
+  Donwload artifacts created by Gitlab CI in your App's directory.
+description: |-
+  Donwload artifacts created by Gitlab CI in your App's directory.
+website: https://github.com/Frugghi/gitlab-artifacts-bitrise
+source_code_url: https://github.com/Frugghi/gitlab-artifacts-bitrise
+support_url: https://github.com/Frugghi/gitlab-artifacts-bitrise/issue
+type_tags:
+  - gitlab
+  - artifacts
+is_requires_admin_user: false
+is_always_run: false
+is_skippable: false
+deps:
+  brew:
+    - name: jq
+inputs:
+  - gitlab_artifacts_path: "$BITRISE_SOURCE_DIR"
+    opts:
+      title: "Downloaded artifacts path."
+      is_expand: true
+      is_required: true
+  - gitlab_private_token:
+    opts:
+      title: "Gitlab private token."
+      is_expand: true
+      is_required: true
+  - gitlab_api_url: "https://gitlab.com/api/v3"
+    opts:
+      title: "Gitlab API URL."
+      is_expand: true
+      is_required: true
+  - gitlab_project_repo:
+    opts:
+      title: "Gitlab repository."
+      is_expand: true
+      is_required: true
+  - gitlab_project_id:
+    opts:
+      title: "Gitlab project id."
+      is_expand: true
+      is_required: false
+  - gitlab_build_branch:
+    opts:
+      title: "Gitlab build branch."
+      is_expand: true
+      is_required: false
+  - gitlab_build_stage:
+    opts:
+      title: "Gitlab build stage."
+      is_expand: true
+      is_required: false
+  - gitlab_build_name:
+    opts:
+      title: "Gitlab build name."
+      is_expand: true
+      is_required: false
