@@ -14,7 +14,7 @@ if [ -z "$gitlab_project_id" ]; then
   write_section_start_to_formatted_output '* Invalid project id'
   exit 1
 fi
-write_section_start_to_formatted_output "## ${gitlab_artifacts_repo} id is ${gitlab_project_id}"
+write_section_start_to_formatted_output "## ${gitlab_project_repo} id is ${gitlab_project_id}"
 
 write_section_start_to_formatted_output "# Retriving builds"
 gitlab_build=`curl -sS -H "PRIVATE-TOKEN: ${gitlab_private_token}" "${gitlab_api_url}/projects/${gitlab_project_id}/builds" | jq -r --arg ref "${gitlab_build_branch}" --arg stage "${gitlab_build_stage}" --arg name "${gitlab_build_name}" 'map(select(.status == "success" and .artifacts_file != null)) | if $ref != "" then map(select(.ref == $ref)) else . end | if $stage != "" then map(select(.stage == $stage)) else . end | if $name != "" then map(select(.name == $name)) else . end | max_by(.id)'`
@@ -48,7 +48,7 @@ fi
 
 if [[ "${gitlab_artifact_file_name}" == *.zip ]]; then
   write_section_start_to_formatted_output "## Unzipping ${gitlab_artifact_file_name}"
-  unzip "${gitlab_artifact_temp_dir}/${gitlab_artifact_file_name}" -d "${gitlab_artifacts_path}" > /dev/null
+  unzip "${gitlab_artifact_temp_dir}/${gitlab_artifact_file_name}" -d "${gitlab_artifacts_path}"
 fi
 
 exit 0
