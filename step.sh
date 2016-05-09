@@ -32,7 +32,7 @@ gitlab_build_id=`echo "$gitlab_build" | jq '.id'`
 gitlab_artifact_file_name=`echo "$gitlab_build" | jq '.artifacts_file.filename' | cut -d'"' -f2`
 gitlab_artifact_file_name="${gitlab_build_id}-${gitlab_artifact_file_name}"
 
-gitlab_artifact_temp_dir="./GitlabArtifacts"
+gitlab_artifact_temp_dir="$BITRISE_CACHE_DIR/GitlabArtifacts"
 if [ ! -f "${gitlab_artifact_temp_dir}/${gitlab_artifact_file_name}" ]; then
   rm -rf "${gitlab_artifact_temp_dir}"
   mkdir -p "${gitlab_artifact_temp_dir}"
@@ -47,8 +47,8 @@ if [ ! -f "${gitlab_artifact_temp_dir}/${gitlab_artifact_file_name}" ]; then
 fi
 
 if [[ "${gitlab_artifact_file_name}" == *.zip ]]; then
-  write_section_start_to_formatted_output "## Unzipping ${gitlab_artifact_file_name}"
-  unzip "${gitlab_artifact_temp_dir}/${gitlab_artifact_file_name}" -d "${gitlab_artifacts_path}"
+  write_section_start_to_formatted_output "## Unzipping ${gitlab_artifact_file_name} to ${gitlab_artifacts_path}"
+  unzip -o "${gitlab_artifact_temp_dir}/${gitlab_artifact_file_name}" -d "${gitlab_artifacts_path}"
 fi
 
 exit 0
