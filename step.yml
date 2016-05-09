@@ -5,7 +5,7 @@ description: |-
   Donwload artifacts created by Gitlab CI in your App's directory.
 website: https://github.com/Frugghi/gitlab-artifacts-bitrise
 source_code_url: https://github.com/Frugghi/gitlab-artifacts-bitrise
-support_url: https://github.com/Frugghi/gitlab-artifacts-bitrise/issue
+support_url: https://github.com/Frugghi/gitlab-artifacts-bitrise/issues
 type_tags:
   - gitlab
   - artifacts
